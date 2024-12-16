@@ -16,6 +16,7 @@ import com.example.habittracker.Activities.AddHabitActivity;
 import com.example.habittracker.Room.Habit_Database;
 
 public class MainActivity extends AppCompatActivity {
+    Habit_Database habitDatabase=Habit_Database.getInstance(context);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

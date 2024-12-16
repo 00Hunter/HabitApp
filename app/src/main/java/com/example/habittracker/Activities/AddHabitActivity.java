@@ -2,6 +2,7 @@ package com.example.habittracker.Activities;
 
 import android.opengl.Visibility;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,6 +48,14 @@ public class AddHabitActivity extends AppCompatActivity {
                 add_button.setVisibility(View.GONE);
                 editText.setVisibility(View.VISIBLE);
                 done_button.setVisibility(View.VISIBLE);
+            }
+        });
+
+        done_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String habit=editText.getText().toString();
+                Log.d("Clicked", habit);
             }
         });
     }
