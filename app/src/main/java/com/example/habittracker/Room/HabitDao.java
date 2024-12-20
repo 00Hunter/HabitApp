@@ -8,7 +8,7 @@ import java.util.List;
 
 @Dao
 public interface HabitDao {
-    @Query("SELECT * FROM Habit")
+    @Query("SELECT * FROM habit_table")
     List<Habit>getAll();
 
     @Insert

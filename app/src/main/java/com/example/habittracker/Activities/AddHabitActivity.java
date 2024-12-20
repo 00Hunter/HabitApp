@@ -13,14 +13,23 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.habittracker.App;
 import com.example.habittracker.R;
+import com.example.habittracker.Room.Habit;
+import com.example.habittracker.Room.HabitDao;
+import com.example.habittracker.Room.Habit_Database;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class AddHabitActivity extends AppCompatActivity {
 
     private Button add_button;
     private EditText editText;
     private Button done_button;
-
+    public static Habit_Database db;
+    private final ExecutorService executorService= Executors.newSingleThreadExecutor();
+    private HabitDao habitDao;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +37,8 @@ public class AddHabitActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_habit);
         initViews();
         handleAdd();
+        habitDao= App.db.habitDao();
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -55,7 +66,15 @@ public class AddHabitActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String habit=editText.getText().toString();
-                Log.d("Clicked", habit);
+
+                executorService.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        Habit Newhabit=new Habit();
+                        Newhabit.Name=habit;
+                        habitDao.insert(Newhabit);
+                    }
+                });
             }
         });
     }

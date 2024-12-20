@@ -15,8 +15,12 @@ import androidx.room.Room;
 import com.example.habittracker.Activities.AddHabitActivity;
 import com.example.habittracker.Room.Habit_Database;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class MainActivity extends AppCompatActivity {
-    Habit_Database habitDatabase=Habit_Database.getInstance(context);
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        Habit_Database db = Room.databaseBuilder(getApplicationContext(),
-                Habit_Database.class, "Habit").build();
+
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
